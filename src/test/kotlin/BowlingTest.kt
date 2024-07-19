@@ -17,6 +17,7 @@ class BowlingTest {
             Pair("7", 7),
             Pair("8", 8),
             Pair("9", 9),
+            Pair("X", 10),
         ).map { (game, expected) ->
             DynamicTest.dynamicTest("$game $expected") {
                 Bowling.score(game) shouldBe expected
