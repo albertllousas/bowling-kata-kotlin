@@ -2,17 +2,20 @@ class Bowling {
     companion object {
         fun score(game: String): Int {
             var count = 0
-            var remaining = game
-            while (remaining != "") {
-                val pinsDown = remaining.first()
-                count += if (pinsDown == 'X') {
-                    10
-                } else if (pinsDown == '-') {
-                    0
-                } else {
-                    pinsDown.digitToInt()
+            val frames = game.split(" ")
+            for (frame in frames) {
+                var currentFrame =  frame
+                while (currentFrame != "") {
+                    val pinsDown = currentFrame.first()
+                    count += if (pinsDown == 'X') {
+                        10
+                    } else if (pinsDown == '-') {
+                        0
+                    } else {
+                        pinsDown.digitToInt()
+                    }
+                    currentFrame = currentFrame.drop(1)
                 }
-                remaining = remaining.drop(1)
             }
             return count
         }

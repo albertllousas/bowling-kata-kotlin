@@ -1,5 +1,6 @@
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DynamicTest
+import org.junit.jupiter.api.DynamicTest.*
 import org.junit.jupiter.api.TestFactory
 
 class BowlingTest {
@@ -20,9 +21,13 @@ class BowlingTest {
             Pair("X", 10),
             Pair("--", 0),
             Pair("22", 4),
-            Pair("2/", 4),
+            Pair("22 2", 6),
+            Pair("22 22", 8),
+            Pair("2- 33", 8),
+            Pair("9- 9- 9- 9- 9- 9- 9- 9- 9- 9-", 90),
+            Pair("2/ 33", 16),
         ).map { (game, expected) ->
-            DynamicTest.dynamicTest("$game $expected") {
+            dynamicTest("$game $expected") {
                 Bowling.score(game) shouldBe expected
             }
         }
