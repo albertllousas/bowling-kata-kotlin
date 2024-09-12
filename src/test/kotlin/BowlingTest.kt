@@ -11,11 +11,11 @@ class BowlingTest {
             Pair("-", 0),
             Pair("1", 1),
             Pair("2", 2),
-            Pair("11", 2)
+            Pair("11", 2),
+            Pair("12 11", 5),
         ).map { (game, expected) ->
             dynamicTest("When game is '$game' the score should be '$expected'") {
                 Bowling.score(game) shouldBe expected
             }
         }
-
 }
