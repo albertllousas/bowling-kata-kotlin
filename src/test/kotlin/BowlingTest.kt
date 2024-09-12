@@ -9,8 +9,9 @@ class BowlingTest {
     fun `should score a bowling game`() =
         listOf(
             Pair("-", 0),
+            Pair("1", 1),
         ).map { (game, expected) ->
-            dynamicTest("When is'$game'the score should be '$expected'") {
+            dynamicTest("When game is '$game' the score should be '$expected'") {
                 Bowling.score(game) shouldBe expected
             }
         }
