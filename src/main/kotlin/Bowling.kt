@@ -17,12 +17,13 @@ class Bowling {
             return total
         }
 
-        private fun getNextPinsDown(frames: List<String>, i: Int): Pair<Int, Int> {
-            if (i + 1 >= frames.size) return Pair(0, 0)
-            val nextRoll = getPinsDown(frames[i + 1][0])
-            val rollAfterNext = getPinsDown(frames[i + 1][1])
-            return Pair(nextRoll, rollAfterNext)
-        }
+        private fun getNextPinsDown(frames: List<String>, i: Int) =
+            if (i + 1 >= frames.size) Pair(0, 0)
+            else if (frames[i + 1][0] == STRIKE_CHAR) {
+                val nextRoll = 10
+                val rollAfterNext = getPinsDown(frames.getOrElse(i + 2) { MISS_CHAR.toString() }[0])
+                Pair(nextRoll, rollAfterNext)
+            } else Pair(getPinsDown(frames[i + 1][0]), getPinsDown(frames[i + 1][1]))
 
         private fun scoreSingleFrame(frame: String, nextBall: Int, ballAfterNext: Int) =
             when {
