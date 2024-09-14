@@ -4,20 +4,25 @@ class Bowling {
 
     companion object {
 
-        private val FRAME_SEPARATOR = " "
-        private val STRIKE_CHAR = 'X'
-        private val SPARE_CHAR = '/'
-        private val MISS_CHAR = '-'
+        private const val FRAME_SEPARATOR = " "
+        private const val STRIKE_CHAR = 'X'
+        private const val SPARE_CHAR = '/'
+        private const val MISS_CHAR = '-'
 
         fun score(game: String): Int {
             var total = 0
             val frames = game.split(FRAME_SEPARATOR)
             frames.forEachIndexed { i, frame ->
-                val nextRoll = if (i + 1 < frames.size) getPinsDown(frames[i + 1][0]) else 0
-                val rollAfterNext = if (i + 1 < frames.size) getPinsDown(frames[i + 1][1]) else 0
+                val (nextRoll, rollAfterNext) = getNextPinsDown(frames, i)
                 total += scoreSingleFrame(frame, nextRoll, rollAfterNext)
             }
             return total
+        }
+
+        private fun getNextPinsDown(frames: List<String>, i: Int): Pair<Int, Int> {
+            val nextRoll = if (i + 1 < frames.size) getPinsDown(frames[i + 1][0]) else 0
+            val rollAfterNext = if (i + 1 < frames.size) getPinsDown(frames[i + 1][1]) else 0
+            return Pair(nextRoll, rollAfterNext)
         }
 
         private fun scoreSingleFrame(frame: String, nextBall: Int, ballAfterNext: Int) =
