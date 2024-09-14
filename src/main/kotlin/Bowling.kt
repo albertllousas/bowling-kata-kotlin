@@ -1,5 +1,3 @@
-import java.awt.Frame
-
 class Bowling {
 
     companion object {
@@ -20,8 +18,9 @@ class Bowling {
         }
 
         private fun getNextPinsDown(frames: List<String>, i: Int): Pair<Int, Int> {
-            val nextRoll = if (i + 1 < frames.size) getPinsDown(frames[i + 1][0]) else 0
-            val rollAfterNext = if (i + 1 < frames.size) getPinsDown(frames[i + 1][1]) else 0
+            if (i + 1 >= frames.size) return Pair(0, 0)
+            val nextRoll = getPinsDown(frames[i + 1][0])
+            val rollAfterNext = getPinsDown(frames[i + 1][1])
             return Pair(nextRoll, rollAfterNext)
         }
 
@@ -32,7 +31,7 @@ class Bowling {
                 else -> getPinsDown(frame[0]) + getPinsDown(frame.getOrElse(1) { MISS_CHAR })
             }
 
-        private fun getPinsDown(roll:Char) = when(roll) {
+        private fun getPinsDown(roll: Char) = when (roll) {
             STRIKE_CHAR -> 10
             SPARE_CHAR -> 10
             MISS_CHAR -> 0
