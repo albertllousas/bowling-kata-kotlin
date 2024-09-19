@@ -16,9 +16,9 @@ class BowlingTest {
             Pair("12 11", 5),
             Pair("1/ 11", 13),
             Pair("X 22", 18),
-//            Pair("X 1/ 11", 33),
-//            Pair("X X 11", 35),
-//            Pair("9- 9- 9- 9- 9- 9- 9- 9- 9- 9-", 90),
+            Pair("X 1/ 11", 33),
+            Pair("X X 11", 35),
+            Pair("9- 9- 9- 9- 9- 9- 9- 9- 9- 9-", 90),
 //            Pair("5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 1/5", 146),
 //            Pair("X X X X X X X X X X X X", 300),
         ).map { (game, expected) ->
