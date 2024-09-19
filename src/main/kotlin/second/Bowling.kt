@@ -7,19 +7,16 @@ object Bowling {
     fun score(game: String): Int {
         val frames = parse(game)
         return frames.foldRightIndexed(0) { index, frame, total ->
-            if(isSpare(frame)) total + 10 + nextRoll(frames, index)
-            else if(isStrike(frame)) total + 10 + nextTwoRolls(frames, index)
+            if(isSpare(frame)) total + 10 + pinsDownNextRolls(frames, index, 1)
+            else if(isStrike(frame)) total + 10 + pinsDownNextRolls(frames, index, 2)
             else total + frame.sum()
         }
     }
 
-    private fun nextRoll(frames: List<List<Int>>, currentIdx: Int) =
-        frames.getOrNull(currentIdx + 1)?.getOrElse(0) { 0 } ?: 0
-
     private fun isStrike(frame: List<Int>) = frame.size == 1 && frame[0] == 10
 
-    private fun nextTwoRolls(frames: List<List<Int>>, currentIdx: Int) =
-        frames.drop(currentIdx + 1).flatten().take(2).sum()
+    private fun pinsDownNextRolls(frames: List<List<Int>>, currentIdx: Int, numOfRolls: Int) =
+        frames.drop(currentIdx + 1).flatten().take(numOfRolls).sum()
 
     private fun isSpare(frame: List<Int>) = frame.size == 2 && frame.sum() == 10
 
