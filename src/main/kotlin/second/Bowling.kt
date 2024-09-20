@@ -7,8 +7,8 @@ object Bowling {
     fun score(game: String): Int {
         val frames = parse(game)
         return frames.foldRightIndexed(0) { index, frame, total ->
-            if(isSpare(frame)) total + 10 + pinsDownNextRolls(frames, index, 1)
-            else if(isStrike(frame)) total + 10 + pinsDownNextRolls(frames, index, 2)
+            if (isSpare(frame)) total + 10 + pinsDownNextRolls(frames, index, 1)
+            else if (isStrike(frame)) total + 10 + pinsDownNextRolls(frames, index, 2)
             else total + frame.sum()
         }
     }
@@ -20,15 +20,14 @@ object Bowling {
 
     private fun isSpare(frame: List<Int>) = frame.size == 2 && frame.sum() == 10
 
-    private fun parse(game: String): List<List<Int>> {
-        return game.split(FRAME_DELIMITER).map { frame ->
+    private fun parse(game: String) =
+        game.split(FRAME_DELIMITER).map { frame ->
             frame.mapIndexed { index, char ->
-                if(char == '/') 10 - frame[index - 1].pinsDown()
-                else if(char == 'X') 10
+                if (char == '/') 10 - frame[index - 1].pinsDown()
+                else if (char == 'X') 10
                 else char.pinsDown()
             }
-        }
-    }
+        }.let { if (it.size > 10) it.take(9) + listOf((listOf(it[9]) + it.drop(10)).flatten()) else it }
 
-    private fun Char.pinsDown() = if(this == '-') 0 else this.digitToInt()
+    private fun Char.pinsDown() = if (this == '-') 0 else this.digitToInt()
 }

@@ -19,8 +19,8 @@ class BowlingTest {
             Pair("X 1/ 11", 33),
             Pair("X X 11", 35),
             Pair("9- 9- 9- 9- 9- 9- 9- 9- 9- 9-", 90),
-//            Pair("5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 1/5", 146),
-//            Pair("X X X X X X X X X X X X", 300),
+            Pair("5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 1/5", 146),
+            Pair("X X X X X X X X X X X X", 300),
         ).map { (game, expected) ->
             dynamicTest("When game is '$game' the score should be '$expected'") {
                 Bowling.score(game) shouldBe expected
